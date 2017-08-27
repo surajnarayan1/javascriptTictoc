@@ -1,0 +1,129 @@
+<html>
+<head>
+<link type="text/css" rel="stylesheet" href="TicToeGame.css">
+ <script>
+        function startGame()
+        {
+	 for(var i=1;i<=9;i=i+1)
+	 { clearBox(i);
+	 }
+            document.turn = "X";
+			if( Math.random() < 0.5)
+			{
+			document.turn="o";
+			}
+			document.winner = null;
+            setMessage(document.turn +"start the game")
+           
+        }
+        function setMessage(msg)
+        {
+            document.getElementById("message").innerText = msg;
+        }
+        function nextMove(Box)
+        {
+		if(document.winner != null)
+		{
+		setMessage(document.winner + "already won the game");
+		}
+		else
+            if (Box.innerText == "")
+            {
+                Box.innerText = document.turn;
+                swithTurn();
+            }
+            else
+            {
+                setMessage("Inavalid Move");
+            }
+        }
+        function swithTurn()
+        {
+		if(checkForWinner(document.turn))
+		{
+		setMessage("Congratulation "+document.turn+"!you win");
+		document.winner=document.turn;
+		}
+		else
+            
+            if (document.turn == "X") {
+                document.turn = "0";
+				 setMessage("Its    "+document.turn+"' turn s");
+            }
+            else
+            {
+                document.turn = "X";
+				 setMessage("Its    "+document.turn+"' turn s");
+            }
+          
+        }
+        function checkForWinner(move)
+        {
+            var result = false;
+            if (checkRow(1, 2, 3, move) ||
+                checkRow(4, 5, 6, move) ||
+                checkRow(7, 8, 9, move) ||
+                checkRow(1, 4, 7, move) ||
+                checkRow(2, 5, 8, move) ||
+                checkRow(3, 6, 9, move) ||
+                checkRow(1, 5, 9, move) ||
+                checkRow(3, 5, 7, move))
+            {
+                result = true;
+            }
+            return result;
+        }
+        function checkRow(a, b, c, move)
+        {
+            var result1= false;//used var so that it will last in block
+            if (getBox(a) === move && getBox(b) === move && getBox(c) === move)
+            {
+                result1 = true;
+            }
+             return result1;
+        } 
+        function getBox(number)
+        {
+            return document.getElementById("s" + number).innerText;
+        }
+		function clearBox(number)
+		{
+		document.getElementById("s"+number).innerText="";
+		}
+    </script> 
+</head>
+
+
+
+
+
+
+
+
+
+<body onload= "startGame()"> 
+<h1>Welcome to Tic Toc Game</h1>
+<div class="stylling" id="message">message will go here</div>
+<div>
+	<div>
+		<span><button  id="s1" class="Box" onclick="nextMove(this)"/></span>
+		<span><button id="s2" class="Box" onclick="nextMove(this)"/></span>
+		<span><button id="s3" class="Box" onclick="nextMove(this)"/></span>
+	</div>
+	<div>
+
+		<span><button id="s4" class="Box" onclick="nextMove(this)"/></span>
+		<span><button id="s5" class="Box" onclick="nextMove(this)"/></span>
+		<span><button id="s6" class="Box" onclick="nextMove(this)"/></span>
+	</div>
+	<div>
+
+		<span><button id="s7" class="Box" onclick="nextMove(this)"/></span>
+		<span><button id="s8" class="Box" onclick="nextMove(this)"/></span>
+		<span><button id="s9" class="Box" onclick="nextMove(this)"/></span>
+	</div>
+</div>
+<a href="javascript:startGame();">Start Over</a>
+</body>
+</html>
+
